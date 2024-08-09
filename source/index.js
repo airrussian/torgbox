@@ -9,39 +9,48 @@ const ruShortMonths = [
     "окт", "ноя", "дек"
 ];
 
-/**
- * Топорно удаляет из строки кавычки
- * @param { string } str 
- * @return { string }
- */
-const removeQuotes = str => 
-    str
-        .replaceAll("\"", "")
-        .replaceAll("'", "")
-        .replaceAll("«", "")
-        .replaceAll("»", "");
 
 /**
- * Регулярное выражение удовлетворяющие тестам 
+ * Преобразует русское название месяца в номер месяца в году.
+ * Если преобразовать не удалось возвращает ноль
+ * @param {string} ruNameMonth 
+ * @return { number }
+ */
+const monthStrToNumber = ruNameMonth => {
+
+}
+
+
+/**
+ * Топорно удаляет из строки все виды кавычек 
+ * @param { string } str 
+ * @param { [] } quotes
+ * @return { string }
+ */
+const removeQuotes = (str, quotes = ['"', "'", "`", "«", "»", "<", ">"]) =>     
+    quotes.reduce((str, quote) => str.replaceAll(quote, ""), str);
+
+/**
+ * Регулярное выражение удовлетворяющие тестам
+ * Важно:
+ *  1. day может быть годом, а year может быть числом 
  * @type { RegExp }
  */
-const reg = new RegExp(/(?<dayOrYead>\d{1,4})[\s\-\/\.](?<month>\S+?)[\s\-\/\.](?<yearOrDay>\d{1,4})(.+?(?<hour>\d{2}):(?<min>\d{2}))?/);
+const reg = new RegExp(/(?<day>\d{1,4})[\s\-\/\.](?<month>\S+?)[\s\-\/\.](?<year>\d{1,4})(.+?(?<hour>\d{2}):(?<min>\d{2})(:(?<sec>\d{2})(\.(?<msec>\d{3}))?)?)?/);
 
 
 
 const toISO = function(dateString) {
 
-    let timestamp = Date.parse( dateString );  
+    let timestamp = Date.parse( dateString ); 
+    if ( isNaN( timestamp ) ) {
+        
+    }
     
     const r = reg.exec( removeQuotes(dateString ));
 
-    console.log(dateString, r );
+    console.log( r.groups );
 
-
-    // if ( isNaN( timestamp ) )
-    //     throw new Error( "Invalid timestamp: " + dateString );
-    
-    // console.log( "DATE: ", new Date( timestamp ).toISOString() );    
 }
 
 module.exports = function ( { src, options } ) {
