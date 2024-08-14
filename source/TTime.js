@@ -9,7 +9,7 @@ class TTime {
 
     static parse( str ) {
 
-        const result = new RegExp(/[^+-](?<hour>\d{1,2}):(?<min>\d{1,2})(:(?<sec>\d{1,2}))?(\.(?<msec>\d{1,3}))?/).exec( str );
+        const result = new RegExp(/[^+-\d](?<hour>\d{1,2}):(?<min>\d{1,2})(:(?<sec>\d{1,2}))?(\.(?<msec>\d{1,3}))?/).exec( str );
 
         if ( !result ) return new TTime();
 
