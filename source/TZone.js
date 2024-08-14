@@ -5,7 +5,7 @@ class TZone {
     }
 
     static parse( str ) {
-        const result = new RegExp(/(?<f>[Z+-])(?<h>\d{2}):(?<m>\d{2})/).exec( str );
+        const result = new RegExp(/(?<f>[+-])(?<h>\d{2}):(?<m>\d{2})/).exec( str );
         if ( !result || result.groups.f === "Z" ) return new TZone(0);
 
         const dir = (result.groups.f === "-") ? -1 : 1; 
@@ -27,7 +27,7 @@ class TZone {
 
     toISO() {
         if ( this.utc === 0 ) return "Z";
-        return `${this.figure}${this.hour}:${this.minute}`;
+        return `${this.figure}${this.hour.toString().padStart(2, "0")}:${this.minute.toString().padStart(2, "0")}`;
     }
 }
 

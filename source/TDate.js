@@ -30,7 +30,7 @@ class TDate {
         
         Object.assign( date, { 
             day: parseInt( date.day ),
-            month: parseInt( date.month ) ?? parseMonth( date.month ),
+            month: parseInt( date.month ) || parseMonth( date.month ),
             year: parseInt( date.year )
         });
 

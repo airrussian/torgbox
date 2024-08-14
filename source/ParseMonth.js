@@ -12,6 +12,6 @@ const ruShortMonths = [
  * @return { number }
  */
 module.exports = ( ruNameMonth ) => {
-    const month = ruShortMonths.find( m => new RegExp(m).test( ruNameMonth.toLowerCase() ) );
+    const month = ruShortMonths.find( m => new RegExp(m).test( ruNameMonth.toLowerCase() ) );        
     return month ? ruShortMonths.indexOf(month) + 1 : 0;
 }

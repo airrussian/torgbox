@@ -16,7 +16,7 @@ class TDateTime {
      * @param { string[] } quotes
      * @return { string }
      */
-    removeQuotes(str, quotes = ['"', "'", "`", "«", "»"]) {
+    static removeQuotes(str, quotes = ['"', "'", "`", "«", "»"]) {
         return quotes.reduce((str, quote) => str.replaceAll(quote, ""), str);
     }
     
@@ -27,12 +27,12 @@ class TDateTime {
      * @return { DateTime }
      */
     static parse( str ) {
-        str = this.removeQuotes( str );
+        str = TDateTime.removeQuotes( str );
 
         const date = TDate.parse( str );
         const time = TTime.parse( str );
         const zone = TZone.parse( str );
-        
+
         return new TDateTime(date, time, zone);
     }
 
@@ -42,7 +42,7 @@ class TDateTime {
      * @returns { string }
      */
     toISO() {
-        return `${this.date.toISO()}T${this.time.toISO()}${this.zone.toISO}`;
+        return `${this.date.toISO()}${this.time.toISO()}${this.zone.toISO()}`;
     }    
 }
 
