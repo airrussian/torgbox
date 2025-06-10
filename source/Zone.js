@@ -1,4 +1,4 @@
-class TZone {
+class Zone {
 
     constructor( utc ) {
         this.utc = utc;
@@ -6,10 +6,10 @@ class TZone {
 
     static parse( str ) {
         const result = new RegExp(/(?<f>[+-])(?<h>\d{2}):(?<m>\d{2})/).exec( str );
-        if ( !result || result.groups.f === "Z" ) return new TZone(0);
+        if ( !result || result.groups.f === "Z" ) return new Zone(0);
 
         const dir = (result.groups.f === "-") ? -1 : 1; 
-        return new TZone( dir * (parseInt( result.groups.h ) * 60 + parseInt( result.groups.m )));
+        return new Zone( dir * (parseInt( result.groups.h ) * 60 + parseInt( result.groups.m )));
     }
 
     get figure() {
@@ -31,4 +31,4 @@ class TZone {
     }
 }
 
-module.exports = TZone;
+module.exports = Zone;

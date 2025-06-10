@@ -2,7 +2,7 @@ const parseMonth = require("./ParseMonth");
 const swapDayYear = date => Object.assign( date, { day: date.year, year: date.day } );
 
 
-class TDate {
+class Date {
 
     constructor( day, month, year) {
         this.day = day;
@@ -14,7 +14,7 @@ class TDate {
     /**
      * 
      * @param { string } str 
-     * @returns TDate
+     * @returns Date
      */
     static parse( str ) {
         const sep = "[\\s\\-/.]+?";
@@ -34,7 +34,7 @@ class TDate {
             year: parseInt( date.year )
         });
 
-        return new TDate( date.day, date.month, date.year );
+        return new Date( date.day, date.month, date.year );
     }
 
     toISO() {
@@ -47,4 +47,4 @@ class TDate {
 }
 
 
-module.exports = TDate;
+module.exports = Date;

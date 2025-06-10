@@ -1,4 +1,4 @@
-class TTime {
+class Time {
 
     constructor( hour = 0, minute = 0, second = 0, msec = 0 ) {
         this.hour = hour;
@@ -11,9 +11,9 @@ class TTime {
 
         const result = new RegExp(/[^+-\d](?<hour>\d{1,2}):(?<min>\d{1,2})(:(?<sec>\d{1,2}))?(\.(?<msec>\d{1,3}))?/).exec( str );
 
-        if ( !result ) return new TTime();
+        if ( !result ) return new Time();
 
-        return new TTime(
+        return new Time(
             parseInt( result.groups.hour ),
             parseInt( result.groups.min ),
             result.groups.sec ? parseInt( result.groups.sec ) : 0,
@@ -30,4 +30,4 @@ class TTime {
     }
 }
 
-module.exports = TTime;
+module.exports = Time;

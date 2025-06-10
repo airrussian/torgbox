@@ -1,8 +1,8 @@
-const TDate = require('./TDate');
-const TTime = require('./TTime');
-const TZone = require('./TZone');
+const Date = require('./Date');
+const Time = require('./Time');
+const Zone = require('./Zone');
 
-class TDateTime {
+class DateTime {
 
     constructor(date, time, zone) {
         this.date = date;
@@ -27,13 +27,13 @@ class TDateTime {
      * @return { DateTime }
      */
     static parse( str ) {
-        str = TDateTime.removeQuotes( str );
+        str = DateTime.removeQuotes( str );
 
-        const date = TDate.parse( str );
-        const time = TTime.parse( str );
-        const zone = TZone.parse( str );
+        const date = Date.parse( str );
+        const time = Time.parse( str );
+        const zone = Zone.parse( str );
 
-        return new TDateTime(date, time, zone);
+        return new DateTime(date, time, zone);
     }
 
     /**
@@ -46,4 +46,4 @@ class TDateTime {
     }    
 }
 
-module.exports = TDateTime;
+module.exports = DateTime;
