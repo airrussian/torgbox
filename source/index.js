@@ -39,29 +39,32 @@ var dateToISO = str => str
     .replace(/(\d{4})\.(\d{2})\.(\d{2})/, (_, y,m,d) => `${y}-${m}-${d}`);
 
 /**
- * Преобразует время в формат ISO 8601 (T00:00:00.000+00:00)  
+ * Преобразует время в формат ISO 8601 (T00:00:00.000)  
  * 
  * @param { string } str 
  * @returns { string }
  */
-var timeToISO = str => {
-    const regExpTime = /[^+-\d]([0-2]?\d):([0-5]\d):?([0-5]\d)?\.?(\d{3})?/
-    return str.replace( regExpTime, (_, h, m, s, ss ) => 
+var timeToISO = str => str.replace( 
+    /[^+-\d]([0-2]?\d):([0-5]\d):?([0-5]\d)?\.?(\d{3})?/, 
+    (_, h, m, s, ss ) => 
         `T${[h, m, s].map( v => v ? v.padStart(2, "0") : "00").join(":")}` + 
         `.${ss ? ss.padStart(3,"0") : "000"}`
     );
-}
 
-var zoneToISO = str => {
-    var regExpZone = /([+-][0-5]\d):([0-5]\d)/
-    return str.replace( regExpZone, (_, zh, zm ) => {
+/**
+ * Находит таймзону и преобразует к виду +00:00
+ * @param { string } str 
+ * @returns { string }
+ */
+
+var zoneToISO = str => str.replace( 
+    /([+-][0-5]\d):([0-5]\d)/, 
+    (_, zh, zm ) => {
         var h = parseInt(zh);
         return `${h < 0 ? "-" : "+"}${h.toString().padStart(2, "0")}:${zm.padStart(2, "0")}` 
-    });    
-}
+    }); 
 
 var joinAll = str => {
-    console.log( str );
     const r = str.match(/(\d{4}-\d{2}-\d{2})(?:[^T+-]*T(\d{2}:\d{2}:\d{2}(?:\.\d{3})?))?(?:[^+-]*([+-]\d{2}:\d{2}|\w+))?/);
     return `${r[1]}T${r[2] ?? "00:00:00.000"}${r[3] ?? "Z"}`;
 }
@@ -75,5 +78,3 @@ module.exports = function ( { src, options } ) {
 
     return parse( src[options] ); 
 }  
-
-// console.log(parse("2018-06-01T18:17:12.745Z"));
